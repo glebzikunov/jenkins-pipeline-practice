@@ -21,14 +21,18 @@ pipeline {
     stage("Installing dependencies") {
       steps {
         echo "Installing dependencies for version ${VERSION}"
-        sh 'npm install'
+        sh """
+          npm install
+        """
       }
     }
 
     stage("Running tests") {
       steps {
         echo "Running test using string parameter: ${STRING_FROM_JENKINS}"
-        sh 'npm run chrome.mocha'
+        sh """
+          npm run chrome.mocha
+        """
       }
     }
   }
