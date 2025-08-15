@@ -24,7 +24,7 @@ pipeline {
       }
     }
     
-    stage('Testing') {
+    stage("Testing on ${params.CHOICE}") {
       steps {
         script {
           if (params.CHOICE == 'chrome') {
