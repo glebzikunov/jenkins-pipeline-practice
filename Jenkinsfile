@@ -22,6 +22,10 @@ pipeline {
       steps {
         echo "Installing dependencies for version ${VERSION}"
         sh """
+        #!/bin/bash
+          curl -sL https:rpm.nodesource.com/setup_20.x | sudo bash -
+          sudo yum install -y nodejs
+          node -v
           npm install
         """
       }
