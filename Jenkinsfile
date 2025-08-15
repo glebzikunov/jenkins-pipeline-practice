@@ -18,22 +18,21 @@ pipeline {
     // STRING_CREDENTIAL = credentials('secretString')
   }
   stages {
-    stage("Installing dependencies") {
+    stage('Setup') {
       steps {
-        echo "Installing dependencies for version ${VERSION}"
-        bat """
-          npm -v
-          npm install
-        """
+        bat 'npm ci'
       }
     }
-
-    stage("Running tests") {
+    
+    stage('Testing') {
       steps {
-        echo "Running test using string parameter: ${STRING_FROM_JENKINS}"
-        bat """
-          npm run chrome.mocha
-        """
+        bat 'npm run chrome.mocha'
+      }
+    }
+    
+    stage('Generating report') {
+      steps {
+        bat 'npm run allure:generate'
       }
     }
   }
