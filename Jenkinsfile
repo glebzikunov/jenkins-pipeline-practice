@@ -8,8 +8,8 @@ pipeline {
     )
     choice(
       name: 'CHOICE',
-      choices: ['1', '2', '3'],
-      description: 'Some choices'
+      choices: ['chrome', 'mozilla'],
+      description: 'Some browser choices'
     )
   }
   environment {
@@ -26,7 +26,13 @@ pipeline {
     
     stage('Testing') {
       steps {
-        bat 'npm run chrome.mocha'
+        script {
+          if (params.CHOICE == 'chrome') {
+            bat 'npm run chrome.mocha'
+          } else {
+            bat 'npm run mozilla.mocha'
+          }
+        }
       }
     }
     
