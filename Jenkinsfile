@@ -24,9 +24,12 @@ pipeline {
       }
     }
     
-    stage("Testing on ${params.CHOICE}") {
+    stage('Testing') {
       steps {
         script {
+          def stageName = "Testing on ${params.CHOICE}"
+          echo stageName
+
           if (params.CHOICE == 'chrome') {
             bat 'npm run chrome.mocha'
           } else {
