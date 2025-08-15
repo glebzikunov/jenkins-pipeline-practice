@@ -1,10 +1,10 @@
-import path from "node:path"
-import fs from "fs-extra"
+import path from "node:path";
+import fs from "fs-extra";
 
-export const downloadDir = path.resolve("./tmp")
+export const downloadDir = path.resolve("./tmp");
 
 export const mainConfig = {
-  inputString: process.env.Choice,
+  inputString: process.env.STRING_FROM_JENKINS,
   baseUrl: "https://the-internet.herokuapp.com/",
   runner: "local",
   exclude: [],
@@ -15,23 +15,33 @@ export const mainConfig = {
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
   framework: "mocha",
-  reporters: ["spec"],
+  reporters: [
+    "spec",
+    [
+      "allure",
+      {
+        outputDir: "allure-results",
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: false,
+      },
+    ],
+  ],
   mochaOpts: {
     ui: "bdd",
     timeout: 60000,
   },
 
   onPrepare: function () {
-    fs.ensureDir(downloadDir)
+    fs.ensureDir(downloadDir);
   },
 
   after: function (result, capabilities, specs) {
-    fs.emptyDir(downloadDir)
+    fs.emptyDir(downloadDir);
   },
 
   afterTest: async function (test, context, { error, result, duration, passed, retries }) {
     if (!passed) {
-      await browser.takeScreenshot()
+      await browser.takeScreenshot();
     }
   },
-}
+};
