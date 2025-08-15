@@ -14,7 +14,7 @@ pipeline {
   }
   environment {
     VERSION = '1.0'
-    STRING_FROM_JENKINS = params.STRING_PARAMETER
+    STRING_FROM_JENKINS = "${params.STRING_PARAMETER}"
     // STRING_CREDENTIAL = credentials('secretString')
   }
   stages {
