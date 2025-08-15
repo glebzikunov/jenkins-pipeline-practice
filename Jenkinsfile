@@ -22,7 +22,6 @@ pipeline {
       steps {
         echo "Installing dependencies for version ${VERSION}"
         bat """
-          winget install OpenJS.NodeJS.LTS
           npm -v
           npm install
         """
