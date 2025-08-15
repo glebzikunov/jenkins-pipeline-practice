@@ -21,11 +21,9 @@ pipeline {
     stage("Installing dependencies") {
       steps {
         echo "Installing dependencies for version ${VERSION}"
-        sh """
-        #!/bin/bash
-          curl -sL https:rpm.nodesource.com/setup_20.x | sudo bash -
-          sudo yum install -y nodejs
-          node -v
+        bat """
+          winget install OpenJS.NodeJS.LTS
+          npm -v
           npm install
         """
       }
@@ -34,7 +32,7 @@ pipeline {
     stage("Running tests") {
       steps {
         echo "Running test using string parameter: ${STRING_FROM_JENKINS}"
-        sh """
+        bat """
           npm run chrome.mocha
         """
       }
